@@ -1,0 +1,35 @@
+{
+  "expo": {
+    "name": "소근",
+    "slug": "sogeun",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/tomato.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/sogeun.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/tomato.png",
+        "backgroundColor": "#ffffff"
+      },
+      "edgeToEdgeEnabled": true,
+      "config": {
+        "naverMap": {
+          "clientId": "2vm1onfec5"
+        }
+      },
+      "package": "com.anonymous.musicbattleapp"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}

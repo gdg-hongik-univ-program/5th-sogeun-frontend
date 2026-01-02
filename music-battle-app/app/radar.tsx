@@ -44,7 +44,7 @@ export default function RadarScreen() {
         {/* 내 기기 */}
         <View style={styles.centerDevice}>
           <Image
-            source={require("../assets/images/sogeun.png")}
+            source={require("../assets/images/tomato.png")}
             style={{ width: 40, height: 40, borderRadius: 10 }}
           />
         </View>
@@ -61,7 +61,7 @@ export default function RadarScreen() {
             ]}
           >
             <Image
-              source={require("../assets/images/sogeun.png")}
+              source={require("../assets/images/tomato.png")}
               style={styles.friendImage}
             />
             <Text style={styles.nameText}>{friend.name}</Text>

@@ -1,13 +1,10 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-export default function ExploreScreen() {
+export default function ProfileScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>🧭 Explore 화면입니다</Text>
-      <Text style={{ marginTop: 10, color: "#666" }}>
-        여기에 새로운 기능을 넣으세요!
-      </Text>
+      <Text style={styles.text}>👤 내 프로필 화면입니다</Text>
     </View>
   );
 }

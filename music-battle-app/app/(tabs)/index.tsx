@@ -8,16 +8,13 @@ import {
   StatusBar,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-// 👇 데이터를 받기 위해 useRoute 추가
 import { useRoute } from "@react-navigation/native";
 
 const { width } = Dimensions.get("window");
 
-export default function RadarScreen() {
+export default function HomeScreen() {
   const route = useRoute();
-
-  // 🚨 [수정 포인트 1] route.params 오류 방지 (as any 사용)
-  // 데이터가 없으면 '내 기기'라고 뜹니다.
+  // 데이터 받기 (없으면 '내 기기')
   const { userId } = (route.params as any) || { userId: "내 기기" };
 
   const [friends, setFriends] = useState([
@@ -51,11 +48,9 @@ export default function RadarScreen() {
         {/* 내 기기 (중앙) */}
         <View style={styles.centerDevice}>
           <Image
-            // 🚨 [수정 포인트 2] 정확한 경로 입력 완료!
             source={require("../../assets/images/tomato.png")}
             style={{ width: 40, height: 40, borderRadius: 10 }}
           />
-          {/* 로그인한 아이디 표시 */}
           <Text style={styles.centerText}>{userId}</Text>
         </View>
 
@@ -71,7 +66,6 @@ export default function RadarScreen() {
             ]}
           >
             <Image
-              // 🚨 [수정 포인트 3] 친구들도 토마토로 표시!
               source={require("../../assets/images/tomato.png")}
               style={styles.friendImage}
             />
@@ -101,15 +95,15 @@ const styles = StyleSheet.create({
   circle2: { width: width * 0.65, height: width * 0.65 },
   circle3: { width: width * 0.4, height: width * 0.4 },
   centerDevice: {
-    width: 80, // 텍스트가 잘리지 않게 넓이 조정
+    width: 80,
     height: 80,
     backgroundColor: "#F0F0F0",
     borderRadius: 20,
     alignItems: "center",
     justifyContent: "center",
     zIndex: 10,
-    elevation: 5, // 그림자 (안드로이드)
-    shadowColor: "#000", // 그림자 (iOS)
+    elevation: 5,
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 3.84,
@@ -118,7 +112,7 @@ const styles = StyleSheet.create({
     marginTop: 4,
     fontSize: 12,
     fontWeight: "bold",
-    color: "#FF7043", // 토마토 색상 텍스트
+    color: "#FF7043",
   },
   friendContainer: { position: "absolute", alignItems: "center" },
   friendImage: { width: 50, height: 50, borderRadius: 25, marginBottom: 5 },

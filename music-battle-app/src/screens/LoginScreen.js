@@ -38,7 +38,7 @@ export default function LoginScreen() {
       if (response.status === 200 || response.status === 201) {
         console.log("🎉 로그인 성공!", response.data);
 
-        Alert.alert("환영합니다!", "소근소근에 오신 것을 환영해요.", [
+        Alert.alert("환영합니다!", "소근에 오신 것을 환영해요.", [
           {
             text: "확인",
             onPress: () => {
@@ -46,7 +46,7 @@ export default function LoginScreen() {
 
               // ✅ [핵심] (tabs) 네비게이터 안에 있는 radar 스크린으로 이동!
               navigation.replace("(tabs)", {
-                screen: "radar",
+                screen: "index",
                 params: { userId: id }, // radar.tsx 로 아이디 전달
               });
             },

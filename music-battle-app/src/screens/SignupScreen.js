@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
 
 export default function SignupScreen() {
   const navigation = useNavigation();
@@ -10,7 +11,9 @@ export default function SignupScreen() {
   const [pwCheck, setPwCheck] = useState('');
   const [nickname, setNickname] = useState('');
 
-  const handleSignup = () => {
+  const SERVER_URL = 'http://15.164.164.66:8080/api/auth/signup';
+
+  const handleSignup = async () => {
     // 1. 빈 칸 확인
     if (!id || !pw || !pwCheck || !nickname) {
       Alert.alert('알림', '모든 정보를 입력해주세요.');
@@ -23,14 +26,43 @@ export default function SignupScreen() {
       return;
     }
 
-    // 3. 회원가입 성공 처리 (나중에는 서버로 데이터 전송)
-    console.log("회원가입 정보:", { id, pw, nickname });
-    Alert.alert('성공', '회원가입이 완료되었습니다!', [
-      { 
-        text: '확인', 
-        onPress: () => navigation.goBack() // 확인 누르면 로그인 화면으로 복귀
+    try {
+      console.log("회원가입 요청 보냄... 🚀", SERVER_URL);
+
+    // 3. 서버로 데이터 전송 (진짜 회원가입!)
+      const response = await axios.post(SERVER_URL, {
+        loginId: id,        // 백엔드는 보통 'userId'나 'username'을 원함
+        password: pw,      
+        nickname: nickname,
+      });
+
+  // 4. 성공 처리 (200 OK 또는 201 Created)
+      if (response.status === 200 || response.status === 201) {
+        console.log("가입 성공!", response.data);
+        Alert.alert('환영합니다!', '회원가입이 완료되었습니다.\n로그인 화면으로 이동합니다.', [
+          { 
+            text: '확인', 
+            onPress: () => navigation.goBack() // 로그인 화면으로 복귀
+          }
+        ]);
       }
-    ]);
+
+    } catch (error) {
+      // 5. 에러 처리
+      console.log("회원가입 에러:", error);
+      if (error.response) {
+        console.log("❌ 서버 응답 상세(여기 보세요):", error.response.data);
+        console.log("❌ 상태 코드:", error.response.status);
+      }
+
+      if (error.response) {
+        // 백엔드에서 "이미 있는 아이디입니다" 같은 메시지를 보냈을 때
+        // (백엔드 설정에 따라 error.response.data.message 일 수도 있음)
+        Alert.alert('가입 실패', '이미 존재하는 아이디거나 입력값이 잘못되었습니다.');
+      } else {
+        Alert.alert('오류', '서버와 연결할 수 없습니다.\n잠시 후 다시 시도해주세요.');
+      }
+    }
   };
 
   return (

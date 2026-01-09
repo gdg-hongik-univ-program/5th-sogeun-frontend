@@ -15,6 +15,10 @@ export default function RootLayout() {
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
+        {/* 로그인 화면(index) 헤더 숨기기 */}
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+        {/* 회원가입 화면(signup) 헤더 숨기기 */}
+        <Stack.Screen name="signup" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
       </Stack>
